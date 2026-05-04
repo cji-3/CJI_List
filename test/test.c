@@ -13,7 +13,7 @@ int main(){
 	CJIList_List list=CJIList_CreateList(sizeof(int));
 	int a=10;
 	CJIList_add(list,&a);
-	printf("%p",list);
+	printf("%d",*(int*)CJIList_read(list,0));
 
 	return 0;
 }

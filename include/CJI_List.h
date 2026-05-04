@@ -40,7 +40,7 @@ CJIList_List CJIList_CreateList(size_t DataByte);
  * \brief (進階)創建list
  * \param DataByte 您的數據位寬(位元組) 如：sizeof(int)
  * \param Increment 增量(正整數為增量(內部會加上無條件捨去)，負數為倍率(內部會加上絕對值))
- * \returns list結構之指標
+ * \returns list結構之指標，失敗(NULL)
  *
  * \version 1.0.0
  */
@@ -50,10 +50,21 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment);
  * \brief 新增元素到list
  * \param list list結構之指標
  * \param data 要新增的數據指標
+ * \returns 成功?
  *
  * \version 1.0.0
  */
 int CJIList_add(CJIList_List list,void* data);
+
+/**
+ * \brief 讀取list中的元素
+ * \param list list結構之指標
+ * \param index 索引
+ * \returns 成功(元素指標)，失敗(NULL)
+ *
+ * \version 1.0.0
+ */
+void* CJIList_read(CJIList_List list,uint32_t index);
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus

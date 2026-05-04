@@ -67,3 +67,9 @@ int CJIList_add(CJIList_List list,void* data){
 		else return -1;	//失敗
 	}
 }
+
+//讀取list中的元素(待優化)
+void* CJIList_read(CJIList_List list,uint32_t index){
+	if(index*list->DataByte < list->ComByte) return list->Address+index/list->DataByte;
+	else return NULL;
+}
