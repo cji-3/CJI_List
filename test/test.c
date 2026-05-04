@@ -11,7 +11,8 @@
 
 int main(){
 	CJIList_List list=CJIList_CreateList(sizeof(int));
-
+	int a=10;
+	CJIList_add(list,&a);
 	printf("%p",list);
 
 	return 0;

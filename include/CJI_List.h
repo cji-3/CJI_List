@@ -11,8 +11,11 @@
 
 #include<stdint.h>
 
-//預設增量(你可以更改此值，或在創建list時使用CJIList_CreateList_Whole()來設定增量)
-#define CJILIST_DEFAULT_INCREMENT -1	//-1為最優解(應該)
+//預設增量(你可以更改此值(建議在你的.c中修改而在非這裡修改)，或在創建list時使用CJIList_CreateList_Whole()來為list個別設定增量)
+#define CJILIST_DEFAULT_INCREMENT (float)(-1)	//-1為最優解(應該)
+
+//預設的list初始總索引數(你可以更改此值(建議在你的.c中修改而在非這裡修改)
+#define CJILIST_DEFAULT_INIT_COM_INDEX 8
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
@@ -26,22 +29,31 @@ typedef struct _CJIList_List* CJIList_List;
 
 /**
  * \brief 創建list
- * \param ItemByte 您的數據位寬(位元組) 如：sizeof(int)
+ * \param DataByte 您的數據位寬(位元組) 如：sizeof(int)
  * \returns list結構之指標
  *
  * \version 1.0.0
  */
-CJIList_List CJIList_CreateList(size_t ItemByte);
+CJIList_List CJIList_CreateList(size_t DataByte);
 
 /**
  * \brief (進階)創建list
- * \param ItemByte 您的數據位寬(位元組) 如：sizeof(int)
- * \param Increment 增量(正整數為增量(內部會加上無條件進位)，負數為倍率(內部會加上絕對值))
+ * \param DataByte 您的數據位寬(位元組) 如：sizeof(int)
+ * \param Increment 增量(正整數為增量(內部會加上無條件捨去)，負數為倍率(內部會加上絕對值))
  * \returns list結構之指標
  *
  * \version 1.0.0
  */
-CJIList_List CJIList_CreateList_Whole(size_t ItemByte,float Increment);
+CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment);
+
+/**
+ * \brief 新增元素到list
+ * \param list list結構之指標
+ * \param data 要新增的數據指標
+ *
+ * \version 1.0.0
+ */
+int CJIList_add(CJIList_List list,void* data);
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
