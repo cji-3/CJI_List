@@ -54,7 +54,7 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment);
  *
  * \version 1.0.0
  */
-int CJIList_add(CJIList_List list,void* data);
+int CJIList_Add(CJIList_List list,void* data);
 
 /**
  * \brief 讀取list中的元素
@@ -64,7 +64,7 @@ int CJIList_add(CJIList_List list,void* data);
  *
  * \version 1.0.0
  */
-void* CJIList_read(CJIList_List list,uint32_t index);
+void* CJIList_read(CJIList_List list,size_t index);
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus

@@ -9,13 +9,50 @@
 #include "../include/CJI_List.h"
 #include<stdlib.h>
 
+#define _CJILIST_DEBUG_MSG_	//開啟debug訊息(註解掉則關閉)
+
+/*debug*/
+	#ifdef _CJILIST_DEBUG_MSG_
+		#include<stdio.h>
+		#include<string.h>
+		#include<stdarg.h>
+
+		//debug訊息類型
+		typedef enum{
+			COMMON,	/**< 一般訊息(綠色文字) */
+			SIGN,	/**< 重點訊息(藍色文字) */
+			ERROR	/**< 錯誤訊息(紅色文字) */
+		}CJI_Debug;
+	#endif
+
+	//debug
+	void debug(CJI_Debug mods,const char* str,...){
+		#ifdef _CJILIST_DEBUG_MSG_
+			va_list a;
+			va_start(a,str);
+
+			printf("\x1b[33mCJI_List：");	//黃色
+
+			if(mods==ERROR) printf("\x1b[31m");	//紅色
+			else if(mods==SIGN) printf("\x1b[34m");	//藍色
+			else printf("\x1b[32m");	//綠色
+			vprintf(str,a);	//輸出訊息
+			printf("\x1b[0m");	//重置顏色
+
+			if(str[strlen(str)-1]!='\n') printf("\n");	//如果訊息最後沒有換行則補上換行
+
+			va_end(a);
+		#endif
+	}
+/*end debug*/
+
 /**
- * list指標
+ * list結構
  */
 typedef struct _CJIList_List{
 	size_t DataByte;	/**< 數據位寬(位元組) */
-	uint32_t ComByte;	/**< 總位元組數 */
-	uint32_t UsedByte;	/**< 已使用之位元組數 */
+	size_t ComByte;		/**< 總位元組數 */
+	size_t UsedByte;	/**< 已使用之位元組數 */
 	void* Address;		/**< 地址 */
 	float Increment;	/**< 增量(正整數為增量(內部會加上無條件進位)，負數為倍率(內部會加上絕對值)) */
 }_CJIList_List;
@@ -31,6 +68,7 @@ CJIList_List CJIList_CreateList(size_t DataByte){
 	_return->Increment=CJILIST_DEFAULT_INCREMENT;
 	_return->Address=(void*)malloc(_return->ComByte);
 
+	debug(COMMON,"CreateList success. list:%p",_return);
 	return (CJIList_List)_return;
 }
 
@@ -43,33 +81,43 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment){
 	_return->Increment=Increment;
 	_return->Address=(void*)malloc(_return->ComByte);
 
+	debug(COMMON,"CreateList_Whole success. list:%p",_return);
 	return (CJIList_List)_return;
 }
 
-//新增元素到list(undone待測試)
-int CJIList_add(CJIList_List list,void* data){
-	if(list->ComByte+list->DataByte >= list->UsedByte){	//不需要擴容
-		int i;
-		for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];
+//新增元素到list(undone)
+int CJIList_Add(CJIList_List list,void* data){
+	if(list->UsedByte+list->DataByte <= list->ComByte){	//不需要擴容
+		size_t i;
+		for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
 		list->UsedByte+=list->DataByte;
 
+		debug(COMMON,"Add success. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
 		return 0;
 	}
 	else{	//需要擴容
 		size_t _Byte;	//擴容後的總位元組數
-		if(list->Increment>0) _Byte=list->ComByte+(size_t)list->Increment*list->DataByte;	//增量
-		else if(list->Increment<0) _Byte=list->ComByte/list->DataByte + (size_t)(list->Increment*-1 * (float)(list->ComByte/list->DataByte) );	//倍率
+		if(list->Increment>0) _Byte=list->ComByte + (size_t)list->Increment*list->DataByte;	//增量
+		else if(list->Increment<0) _Byte=list->ComByte + (size_t)(list->Increment*-1 * (float)(list->ComByte) );	//倍率
 		else _Byte=list->ComByte+8*list->DataByte;	//==0 則預設增量8 index
 
-		realloc(list->Address,_Byte);	//擴容
+		void* rp=realloc(list->Address,_Byte);	//擴容
 
-		if(list->Address!=NULL) return 0;	//成功
+		if(rp!=NULL){	//成功
+			debug(SIGN,"Add success and occur expansion. list:%p, OldComByte:%zu, NewComByte:%zu ,UsedByte:%zu",list,list->ComByte,_Byte,list->UsedByte);
+			list->Address=rp;
+			list->ComByte=_Byte;
+
+			//新增元素
+
+			return 0;
+		}
 		else return -1;	//失敗
 	}
 }
 
 //讀取list中的元素(待優化)
-void* CJIList_read(CJIList_List list,uint32_t index){
-	if(index*list->DataByte < list->ComByte) return list->Address+index/list->DataByte;
+void* CJIList_read(CJIList_List list,size_t index){
+	if(index*list->DataByte < list->ComByte) return list->Address + index*list->DataByte;
 	else return NULL;
 }
