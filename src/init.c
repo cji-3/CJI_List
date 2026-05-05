@@ -8,6 +8,7 @@
 
 #include "../include/CJI_List.h"
 #include<stdlib.h>
+#include<stdbool.h>
 
 #define _CJILIST_DEBUG_MSG_	//開啟debug訊息(註解掉則關閉)
 
@@ -59,9 +60,16 @@ typedef struct _CJIList_List{
 
 /*內部函式*/
 
+//想增加a個元素是否需擴容
+bool _isExpansion(CJIList_List list,size_t a){
+	return list->UsedByte+list->DataByte*a > list->ComByte;
+}
+
+//新增元素到list
 void _addData(CJIList_List list,void* data){
 	size_t i;
 	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
+	list->UsedByte+=list->DataByte;
 }
 
 /*實現*/
@@ -94,9 +102,8 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment){
 
 //新增元素到list(undone)
 int CJIList_Add(CJIList_List list,void* data){
-	if(list->UsedByte+list->DataByte <= list->ComByte){	//不需要擴容
+	if(!_isExpansion(list,1)){	//不需要擴容
 		_addData(list,data);
-		list->UsedByte+=list->DataByte;
 
 		debug(COMMON,"Add success. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
 		return 0;
@@ -113,7 +120,6 @@ int CJIList_Add(CJIList_List list,void* data){
 			list->Address=rp;
 			list->ComByte=_Byte;
 			_addData(list,data);
-			list->UsedByte+=list->DataByte;
 
 			debug(SIGN,"Add success and occur expansion. list:%p, OldComByte:%zu, NewUsedByte:%zu/%zu",list,list->ComByte,list->UsedByte,_Byte);
 
@@ -123,7 +129,12 @@ int CJIList_Add(CJIList_List list,void* data){
 	}
 }
 
-//讀取list中的元素(待優化)
+//在指定索引位置新增元素到list(undone)
+int CJIList_AddIndex(CJIList_List list,size_t index,void* data){
+//
+}
+
+//讀取list中的元素
 void* CJIList_read(CJIList_List list,size_t index){
 	if(index*list->DataByte < list->ComByte) return list->Address + index*list->DataByte;
 	else return NULL;
