@@ -57,7 +57,14 @@ typedef struct _CJIList_List{
 	float Increment;	/**< 增量(正整數為增量(內部會加上無條件進位)，負數為倍率(內部會加上絕對值)) */
 }_CJIList_List;
 
-//---
+/*內部函式*/
+
+void _addData(CJIList_List list,void* data){
+	size_t i;
+	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
+}
+
+/*實現*/
 
 //創建list
 CJIList_List CJIList_CreateList(size_t DataByte){
@@ -88,8 +95,7 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment){
 //新增元素到list(undone)
 int CJIList_Add(CJIList_List list,void* data){
 	if(list->UsedByte+list->DataByte <= list->ComByte){	//不需要擴容
-		size_t i;
-		for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
+		_addData(list,data);
 		list->UsedByte+=list->DataByte;
 
 		debug(COMMON,"Add success. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
@@ -104,11 +110,12 @@ int CJIList_Add(CJIList_List list,void* data){
 		void* rp=realloc(list->Address,_Byte);	//擴容
 
 		if(rp!=NULL){	//成功
-			debug(SIGN,"Add success and occur expansion. list:%p, OldComByte:%zu, NewComByte:%zu ,UsedByte:%zu",list,list->ComByte,_Byte,list->UsedByte);
 			list->Address=rp;
 			list->ComByte=_Byte;
+			_addData(list,data);
+			list->UsedByte+=list->DataByte;
 
-			//新增元素
+			debug(SIGN,"Add success and occur expansion. list:%p, OldComByte:%zu, NewUsedByte:%zu/%zu",list,list->ComByte,list->UsedByte,_Byte);
 
 			return 0;
 		}

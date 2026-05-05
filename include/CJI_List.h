@@ -15,7 +15,7 @@
 #define CJILIST_DEFAULT_INCREMENT (float)(-1)	//-1為最優解(應該)
 
 //預設的list初始總索引數(你可以更改此值(建議在你的.c中修改而在非這裡修改)
-#define CJILIST_DEFAULT_INIT_COM_INDEX 8
+#define CJILIST_DEFAULT_INIT_COM_INDEX 8	//8
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
