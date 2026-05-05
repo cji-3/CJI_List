@@ -15,7 +15,7 @@
 #define CJILIST_DEFAULT_INCREMENT (float)(-1)	//-1為最優解(應該)
 
 //預設的list初始總索引數(你可以更改此值(建議在你的.c中修改而在非這裡修改)
-#define CJILIST_DEFAULT_INIT_COM_INDEX 8	//8
+#define CJILIST_DEFAULT_INIT_COM_INDEX 1	//8
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
@@ -55,6 +55,17 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment);
  * \version 1.0.0
  */
 int CJIList_Add(CJIList_List list,void* data);
+
+/**
+ * \brief 在指定索引位置新增元素到list
+ * \param list list結構之指標
+ * \param index 索引
+ * \param data 要新增的數據指標
+ * \returns 成功?
+ *
+ * \version 1.0.0
+ */
+int CJIList_AddIndex(CJIList_List list,size_t index,void* data);
 
 /**
  * \brief 讀取list中的元素
