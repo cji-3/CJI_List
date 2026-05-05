@@ -14,11 +14,14 @@ int main(){
 
 	int a=20;
 	CJIList_Add(list,&a);
-	int b=10;
-	CJIList_Add(list,&b);
+	a=10;
+	CJIList_Add(list,&a);
+	a=100;
+	CJIList_Add(list,&a);
 
 	printf("%d\n",*(int*)CJIList_read(list,0));
 	printf("%d\n",*(int*)CJIList_read(list,1));
+	printf("%d\n",*(int*)CJIList_read(list,2));
 
 	return 0;
 }
