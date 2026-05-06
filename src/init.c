@@ -17,14 +17,14 @@
 		#include<stdio.h>
 		#include<string.h>
 		#include<stdarg.h>
-
-		//debug訊息類型
-		typedef enum{
-			COMMON,	/**< 一般訊息(綠色文字) */
-			SIGN,	/**< 重點訊息(藍色文字) */
-			ERROR	/**< 錯誤訊息(紅色文字) */
-		}CJI_Debug;
 	#endif
+
+	//debug訊息類型
+	typedef enum{
+		COMMON,	/**< 一般訊息(綠色文字) */
+		SIGN,	/**< 重點訊息(藍色文字) */
+		ERROR	/**< 錯誤訊息(紅色文字) */
+	}CJI_Debug;
 
 	//debug
 	void debug(CJI_Debug mods,const char* str,...){
@@ -61,16 +61,24 @@ typedef struct _CJIList_List{
 /*內部函式*/
 
 //想增加a個元素是否需擴容
-bool _isExpansion(CJIList_List list,size_t a){
+bool _IsExpansion(CJIList_List list,size_t a){
 	return list->UsedByte+list->DataByte*a > list->ComByte;
 }
 
 //新增元素到list
-void _addData(CJIList_List list,void* data){
+void _Write(CJIList_List list,size_t index,void* data){
 	size_t i;
-	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
-	list->UsedByte+=list->DataByte;
+	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[index*list->DataByte + i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
 }
+
+//list的長度(項)
+size_t _ListLen(CJIList_List list){
+	return list->UsedByte/list->DataByte;
+}
+
+/*end 內部函式*/
+
+//---
 
 /*實現*/
 
@@ -102,8 +110,9 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment){
 
 //新增元素到list(undone)
 int CJIList_Add(CJIList_List list,void* data){
-	if(!_isExpansion(list,1)){	//不需要擴容
-		_addData(list,data);
+	if(!_IsExpansion(list,1)){	//不需要擴容
+		_Write(list,_ListLen(list),data);
+		list->UsedByte+=list->DataByte;
 
 		debug(COMMON,"Add success. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
 		return 0;
@@ -119,7 +128,8 @@ int CJIList_Add(CJIList_List list,void* data){
 		if(rp!=NULL){	//成功
 			list->Address=rp;
 			list->ComByte=_Byte;
-			_addData(list,data);
+			_Write(list,_ListLen(list),data);
+			list->UsedByte+=list->DataByte;
 
 			debug(SIGN,"Add success and occur expansion. list:%p, OldComByte:%zu, NewUsedByte:%zu/%zu",list,list->ComByte,list->UsedByte,_Byte);
 
@@ -129,9 +139,14 @@ int CJIList_Add(CJIList_List list,void* data){
 	}
 }
 
-//在指定索引位置新增元素到list(undone)
+//在指定索引位置新增(插入)元素到list，後面的元素會自動往後(undone)
 int CJIList_AddIndex(CJIList_List list,size_t index,void* data){
-//
+
+}
+
+//替換某元素(undone)
+void CJIList_Replace(CJIList_List list,size_t index,void* data){
+	_Write(list,index,data);
 }
 
 //讀取list中的元素
@@ -139,3 +154,5 @@ void* CJIList_read(CJIList_List list,size_t index){
 	if(index*list->DataByte < list->ComByte) return list->Address + index*list->DataByte;
 	else return NULL;
 }
+
+/*end 實現*/
