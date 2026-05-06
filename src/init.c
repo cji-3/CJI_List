@@ -17,14 +17,14 @@
 		#include<stdio.h>
 		#include<string.h>
 		#include<stdarg.h>
-
-		//debug訊息類型
-		typedef enum{
-			COMMON,	/**< 一般訊息(綠色文字) */
-			SIGN,	/**< 重點訊息(藍色文字) */
-			ERROR	/**< 錯誤訊息(紅色文字) */
-		}CJI_Debug;
 	#endif
+
+	//debug訊息類型
+	typedef enum{
+		COMMON,	/**< 一般訊息(綠色文字) */
+		SIGN,	/**< 重點訊息(藍色文字) */
+		ERROR	/**< 錯誤訊息(紅色文字) */
+	}CJI_Debug;
 
 	//debug
 	void debug(CJI_Debug mods,const char* str,...){
@@ -146,7 +146,7 @@ int CJIList_AddIndex(CJIList_List list,size_t index,void* data){
 
 //替換某元素(undone)
 void CJIList_Replace(CJIList_List list,size_t index,void* data){
-	//_Write();
+	_Write(list,index,data);
 }
 
 //讀取list中的元素
