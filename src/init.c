@@ -66,9 +66,14 @@ bool _IsExpansion(CJIList_List list,size_t a){
 }
 
 //新增元素到list
-void _Add(CJIList_List list,void* data){
+void _Write(CJIList_List list,size_t index,void* data){
 	size_t i;
-	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[list->UsedByte+i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
+	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[index*list->DataByte + i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
+}
+
+//list的長度(項)
+size_t _ListLen(CJIList_List list){
+	return list->UsedByte/list->DataByte;
 }
 
 /*end 內部函式*/
@@ -106,7 +111,7 @@ CJIList_List CJIList_CreateList_Whole(size_t DataByte,float Increment){
 //新增元素到list(undone)
 int CJIList_Add(CJIList_List list,void* data){
 	if(!_IsExpansion(list,1)){	//不需要擴容
-		_Add(list,data);
+		_Write(list,_ListLen(list),data);
 		list->UsedByte+=list->DataByte;
 
 		debug(COMMON,"Add success. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
@@ -123,7 +128,7 @@ int CJIList_Add(CJIList_List list,void* data){
 		if(rp!=NULL){	//成功
 			list->Address=rp;
 			list->ComByte=_Byte;
-			_Add(list,data);
+			_Write(list,_ListLen(list),data);
 			list->UsedByte+=list->DataByte;
 
 			debug(SIGN,"Add success and occur expansion. list:%p, OldComByte:%zu, NewUsedByte:%zu/%zu",list,list->ComByte,list->UsedByte,_Byte);
@@ -140,8 +145,8 @@ int CJIList_AddIndex(CJIList_List list,size_t index,void* data){
 }
 
 //替換某元素(undone)
-void* CJIList_read(CJIList_List list,size_t index){
-
+void CJIList_Replace(CJIList_List list,size_t index,void* data){
+	//_Write();
 }
 
 //讀取list中的元素
