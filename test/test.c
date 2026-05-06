@@ -12,16 +12,15 @@
 int main(){
 	CJIList_List list=CJIList_CreateList(sizeof(int));
 
-	int a=20;
-	CJIList_Add(list,&a);
-	a=10;
-	CJIList_Add(list,&a);
-	a=100;
-	CJIList_Add(list,&a);
+	int a=0,i;
+	for(i=0;i<100;i++){
+		CJIList_Add(list,&a);
+		a++;
+	}
 
-	printf("%d\n",*(int*)CJIList_read(list,0));
-	printf("%d\n",*(int*)CJIList_read(list,1));
-	printf("%d\n",*(int*)CJIList_read(list,2));
+	for(i=0;i<100;i++){
+		printf("%d\n",*(int*)CJIList_read(list,i));
+	}
 
 	return 0;
 }
