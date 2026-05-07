@@ -173,27 +173,30 @@ int CLS_AddIndex(CLS_List list,size_t index,void* data){
 		debug(COMMON,"AddIndex success. list:%p, index:%zu, UsedByte:%zu/%zu",list,index,list->UsedByte,list->ComByte);
 		return 0;
 	}
-	else{ // 需要擴容
-	size_t _Byte;	//擴容後的總位元組數
-	if(list->Increment>0) _Byte=list->ComByte + (size_t)list->Increment*list->DataByte;	//增量
-	else if(list->Increment<0) _Byte=list->ComByte + (size_t)(list->Increment*-1 * (float)(list->ComByte) );	//倍率
-	else _Byte=list->ComByte+8*list->DataByte;	//==0 則預設增量8 index
+	else{	//需要擴容
+		size_t _Byte;	//擴容後的總位元組數
+		if(list->Increment>0) _Byte=list->ComByte + (size_t)list->Increment*list->DataByte;	//增量
+		else if(list->Increment<0) _Byte=list->ComByte + (size_t)(list->Increment*-1 * (float)(list->ComByte) );	//倍率
+		else _Byte=list->ComByte+8*list->DataByte;	//==0 則預設增量8 index
 
-	void* rp = realloc(list->Address,_Byte);
-	if(rp==NULL) return -1;
-
-	list->Address = rp;
-	list->ComByte = _Byte;
-
-	for(size_t i=len; i>index; i--){
+		for(size_t i=len; i>index; i--){
 		_Write(list, i, (char*)list->Address + (i-1)*list->DataByte);	//同上
 	}
-	_Write(list, index, data);
-	list->UsedByte += list->DataByte;
+		void* rp = realloc(list->Address,_Byte);
+		
+		if(rp !=NULL){	//成功
+			list->Address=rp;
+			list->ComByte=_Byte;
+			_Write(list, index, data);
+			list->UsedByte += list->DataByte;
 
-	debug(SIGN,"AddIndex success and occur expansion. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
+			debug(SIGN,"AddIndex success and occur expansion. list:%p, UsedByte:%zu/%zu",list,list->UsedByte,list->ComByte);
+
+			return 0;
+		}
+		else return -1;	
 	}
-	return 0;
+	
 }
 
 //替換某元素(undone)
