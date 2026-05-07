@@ -7,6 +7,7 @@
  */
 
 #include<stdio.h>
+#include<stdlib.h>
 #include "../include/CJI_List.h"
 
 int main(){
@@ -22,11 +23,13 @@ int main(){
 	//替換測試
 	a=1000;
 	CLS_Replace(list,50,&a);
-
+	//插入測試
+	int b=250;
+	CLS_AddIndex(list,50,&b);	
 	//讀取測試
-	for(i=0;i<101;i++){
+	for(i=0;i<102;i++){
 		printf("%d\n",*(int*)CLS_read(list,i));
 	}
-
+	system("pause");
 	return 0;
 }
