@@ -11,7 +11,7 @@
 #include<stdbool.h>
 
 #define _CLS_DEBUG_MSG_	//開啟debug訊息(註解掉則關閉)
-//#define _CLS_DEBUG_MSG_COMMON_OFF	//關閉一般訊息
+#define _CLS_DEBUG_MSG_COMMON_OFF	//關閉一般訊息
 //#define _CLS_DEBUG_MSG_SIGN_OFF	//關閉重點訊息
 
 /*debug*/
@@ -165,12 +165,12 @@ void CLS_Replace(CLS_List list,size_t index,void* data){
 
 //讀取list中的元素
 void* CLS_read(CLS_List list,size_t index){
-	if(index*list->DataByte < list->ComByte){
+	if(index*list->DataByte < list->UsedByte){
 		debug(COMMON,"Read success. list:%p, index:%zu",list,index);
 		return list->Address + index*list->DataByte;
 	}
 	else{
-		debug(ERROR,"Read error. Read out of bounds. list:%p, index:%zu, ComIndex:%zu",list,index,list->ComByte/list->DataByte);
+		debug(ERROR,"Read error. Read out of bounds. list:%p, index:%zu, UsedIndex:%zu",list,index,list->UsedByte/list->DataByte);
 		return NULL;
 	}
 }

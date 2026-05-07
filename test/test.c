@@ -24,7 +24,7 @@ int main(){
 	CLS_Replace(list,50,&a);
 
 	//讀取測試
-	for(i=0;i<100;i++){
+	for(i=0;i<101;i++){
 		printf("%d\n",*(int*)CLS_read(list,i));
 	}
 
