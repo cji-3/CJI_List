@@ -87,6 +87,7 @@ void CLS_Replace(CLS_List list,size_t index,void* data);
  * \version 1.0.0
  */
 void* CLS_read(CLS_List list,size_t index);
+
 /**
  * \brief 刪除list中的元素
  * \param list list結構之指標
@@ -96,6 +97,7 @@ void* CLS_read(CLS_List list,size_t index);
  * \version 1.0.0
  */
 int CLS_Delete(CLS_List list,size_t index);
+
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
 }
