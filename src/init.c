@@ -217,4 +217,23 @@ void* CLS_read(CLS_List list,size_t index){
 	}
 }
 
+//刪除list中的元素，後面的元素會自動往前(undone)
+int CLS_Delete(CLS_List list,size_t index){
+	size_t len = _ListLen(list);
+
+	if(index < len){
+		for(size_t i=index; i<len-1; i++){
+			_Write(list, i, (char*)list->Address + (i+1)*list->DataByte);	//同上
+		}
+		list->UsedByte -= list->DataByte;
+
+		debug(COMMON,"Delete success. list:%p, index:%zu, UsedByte:%zu/%zu",list,index,list->UsedByte,list->ComByte);
+		return 0;
+	}
+	else{
+		debug(ERROR,"Delete error. Delete out of bounds. list:%p, index:%zu, len:%zu",list,index,len);
+		return -1;
+	}
+}
+
 /*end 實現*/
