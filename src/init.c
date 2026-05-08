@@ -165,7 +165,7 @@ int CLS_AddIndex(CLS_List list,size_t index,void* data){
 
 	if(!_IsExpansion(list,1)){     // 不需要擴容
 		for(size_t i=len; i>index; i--){
-			_Write(list, i, (char*)list->Address + (i-1)*list->DataByte);		//有點沒效率，先這樣
+			_Write(list, i, (char*)list->Address + (i-1)*list->DataByte);	
 		}
 		_Write(list, index, data);
 		list->UsedByte += list->DataByte;
@@ -180,7 +180,7 @@ int CLS_AddIndex(CLS_List list,size_t index,void* data){
 		else _Byte=list->ComByte+8*list->DataByte;	//==0 則預設增量8 index
 
 		for(size_t i=len; i>index; i--){
-		_Write(list, i, (char*)list->Address + (i-1)*list->DataByte);	//同上
+		_Write(list, i, (char*)list->Address + (i-1)*list->DataByte);	
 	}
 		void* rp = realloc(list->Address,_Byte);
 		
@@ -223,7 +223,7 @@ int CLS_Delete(CLS_List list,size_t index){
 
 	if(index < len){
 		for(size_t i=index; i<len-1; i++){
-			_Write(list, i, (char*)list->Address + (i+1)*list->DataByte);	//同上
+			_Write(list, i, (char*)list->Address + (i+1)*list->DataByte);	
 		}
 		list->UsedByte -= list->DataByte;
 
