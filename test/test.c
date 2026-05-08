@@ -23,15 +23,22 @@ int main(){
 	//替換測試
 	a=1000;
 	CLS_Replace(list,50,&a);
+
 	//插入測試
 	int b=250;
 	CLS_AddIndex(list,50,&b);
+
 	//刪除測試
-	CLS_Delete(list,52);	
+	CLS_Delete(list,52);
+
 	//讀取測試
-	for(i=0;i<102;i++){
+	for(i=0;i<100;i++){
 		printf("%d\n",*(int*)CLS_read(list,i));
 	}
+
+	#ifdef _WIN32
 	system("pause");
+	#endif
+
 	return 0;
 }

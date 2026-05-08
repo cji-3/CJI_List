@@ -10,6 +10,7 @@
 #define _CJI_LIST_H_
 
 #include<stdint.h>
+#include<stddef.h>
 
 //預設增量(你可以更改此值(建議在你的.c中修改而在非這裡修改)，或在創建list時使用CLS_CreateList_Whole()來為list個別設定增量)
 #define CLS_DEFAULT_INCREMENT (float)(-2)	//-2為最優解(應該)
