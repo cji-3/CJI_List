@@ -8,7 +8,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#include "../include/CJI_List.h"
+#include "../include/CLS.h"
 
 int main(){
 	CLS_List list=CLS_CreateList(sizeof(int));
@@ -16,7 +16,7 @@ int main(){
 	//寫入測試
 	int a=0,i;
 	for(i=0;i<100;i++){
-		CLS_Add(list,&a);
+		CLS_AddLast(list,&a);
 		a++;
 	}
 
@@ -29,11 +29,11 @@ int main(){
 	CLS_AddIndex(list,50,&b);
 
 	//刪除測試
-	CLS_Delete(list,52);
+	CLS_DelIndex(list,52);
 
 	//讀取測試
 	for(i=0;i<100;i++){
-		printf("%d\n",*(int*)CLS_read(list,i));
+		printf("%d\n",*(int*)CLS_ReadIndex(list,i));
 	}
 
 	#ifdef _WIN32
