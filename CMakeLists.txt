@@ -1,7 +1,11 @@
+#此文件由AI生成後由程序員修改
+
+# CMake 最低版本要求
 cmake_minimum_required(VERSION 3.10)
 
 # 專案名稱
-project(CJI_List C)
+project(CLS C)
+project(CLS VERSION 1.0.0)
 
 # 強制使用 C99 標準
 set(CMAKE_C_STANDARD 99)
@@ -16,20 +20,20 @@ file(GLOB_RECURSE SOURCES "src/*.c")
 # -------------------------------------------------------------------
 # 1. 生成靜態函式庫 (Static Library)
 # -------------------------------------------------------------------
-add_library(cji_list_static STATIC ${SOURCES})
-# 設定輸出的檔案名稱為 cji_list (避免檔名變成 cji_list_static)
-set_target_properties(cji_list_static PROPERTIES OUTPUT_NAME "cji_list")
+add_library(cls_static STATIC ${SOURCES})
+# 設定輸出的檔案名稱為 cls (編譯後會產生 libcls.a 或 cls.lib)
+set_target_properties(cls_static PROPERTIES OUTPUT_NAME "cls")
 # 設定輸出目錄
-set_target_properties(cji_list_static PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/static")
+set_target_properties(cls_static PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/static")
 
 # -------------------------------------------------------------------
 # 2. 生成動態函式庫 (Shared Library)
 # -------------------------------------------------------------------
-add_library(cji_list_shared SHARED ${SOURCES})
-# 設定輸出的檔案名稱為 cji_list
-set_target_properties(cji_list_shared PROPERTIES OUTPUT_NAME "cji_list")
-# 設定輸出目錄 (Windows 下 .dll 是 RUNTIME, .lib 導入庫是 LIBRARY/ARCHIVE)
-set_target_properties(cji_list_shared PROPERTIES
+add_library(cls_shared SHARED ${SOURCES})
+set_target_properties(cls_shared PROPERTIES
+    OUTPUT_NAME "cls"
+    VERSION ${PROJECT_VERSION}
+    SOVERSION 1 # 主要版本號，當有重大更新時增加
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/shared"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/shared"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/shared"
@@ -40,5 +44,6 @@ set_target_properties(cji_list_shared PROPERTIES
 # -------------------------------------------------------------------
 if(EXISTS "${CMAKE_SOURCE_DIR}/test/test.c")
     add_executable(test_app test/test.c)
-    target_link_libraries(test_app cji_list_static)
+    # 確保連結到新的靜態庫目標名稱
+    target_link_libraries(test_app cls_static)
 endif()

@@ -1,13 +1,13 @@
 /**
- * @file CJI_List.h(undone)
+ * @file CLS.h(undone)
  * @author 林東頡
  * @brief 標頭
  * @version 1.0.0
  * @date 2026-05-04
  */
 
-#ifndef _CJI_LIST_H_
-#define _CJI_LIST_H_
+#ifndef _CLS_H_
+#define _CLS_H_
 
 #include<stdint.h>
 #include<stddef.h>
@@ -45,7 +45,7 @@ CLS_List CLS_CreateList(size_t DataByte);
  *
  * \version 1.0.0
  */
-CLS_List CLS_CreateList_Whole(size_t DataByte,float Increment);
+CLS_List CLS_CreateList_further(size_t DataByte,float Increment);
 
 /**
  * \brief 新增元素到list
@@ -55,7 +55,7 @@ CLS_List CLS_CreateList_Whole(size_t DataByte,float Increment);
  *
  * \version 1.0.0
  */
-int CLS_Add(CLS_List list,void* data);
+int CLS_AddLast(CLS_List list,void* data);
 
 /**
  * \brief 在指定索引位置新增(插入)元素到list，後面的元素會自動往後
@@ -86,7 +86,7 @@ void CLS_Replace(CLS_List list,size_t index,void* data);
  *
  * \version 1.0.0
  */
-void* CLS_read(CLS_List list,size_t index);
+void* CLS_ReadIndex(CLS_List list,size_t index);
 
 /**
  * \brief 刪除list中的元素
@@ -96,7 +96,7 @@ void* CLS_read(CLS_List list,size_t index);
  *
  * \version 1.0.0
  */
-int CLS_Delete(CLS_List list,size_t index);
+int CLS_DelIndex(CLS_List list,size_t index);
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
