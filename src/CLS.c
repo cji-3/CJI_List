@@ -96,7 +96,7 @@ static size_t _ListLen(CLS_List list){
 /*實現*/
 
 //創建list
-CLS_List CLS_CreateList(size_t DataByte){
+CLS_List CLS_Create(size_t DataByte){
 	_CLS_List* _return=(_CLS_List*)malloc(sizeof(_CLS_List));
 	_return->DataByte=DataByte;
 	_return->ComByte=DataByte*CLS_DEFAULT_INIT_COM_INDEX;
@@ -109,7 +109,7 @@ CLS_List CLS_CreateList(size_t DataByte){
 }
 
 //(進階)創建list
-CLS_List CLS_CreateList_Whole(size_t DataByte,float Increment){
+CLS_List CLS_CreateL_P(size_t DataByte,float Increment){
 	_CLS_List* _return=(_CLS_List*)malloc(sizeof(_CLS_List));
 	_return->DataByte=DataByte;
 	_return->ComByte=DataByte*CLS_DEFAULT_INIT_COM_INDEX;
