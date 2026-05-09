@@ -35,7 +35,7 @@ typedef struct _CLS_List* CLS_List;
  *
  * \version 1.0.0
  */
-CLS_List CLS_CreateList(size_t DataByte);
+CLS_List CLS_Create(size_t DataByte);
 
 /**
  * \brief (進階)創建list
@@ -45,7 +45,7 @@ CLS_List CLS_CreateList(size_t DataByte);
  *
  * \version 1.0.0
  */
-CLS_List CLS_CreateList_further(size_t DataByte,float Increment);
+CLS_List CLS_CreateL_P(size_t DataByte,float Increment);
 
 /**
  * \brief 新增元素到list

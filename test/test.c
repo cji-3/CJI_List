@@ -11,7 +11,7 @@
 #include "../include/CLS.h"
 
 int main(){
-	CLS_List list=CLS_CreateList(sizeof(int));
+	CLS_List list=CLS_Create(sizeof(int));
 
 	//寫入測試
 	int a=0,i;
