@@ -26,10 +26,10 @@ int main(){
 
 	//插入測試
 	int b=250;
-	CLS_AddIndex(list,50,&b);
+	CLS_AddIndex(list,CLS_End(list),&b);//在尾端插入
 
 	//刪除測試
-	CLS_DelIndex(list,52);
+	CLS_DelIndex(list,51);	
 
 	//讀取測試
 	for(i=0;i<100;i++){

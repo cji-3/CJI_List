@@ -98,6 +98,16 @@ void* CLS_ReadIndex(CLS_List list,size_t index);
  */
 int CLS_DelIndex(CLS_List list,size_t index);
 
+/**
+ * \brief 定義最後一項index
+ * \param list list結構之指標
+ * \param index 索引
+ * \returns end index
+ *
+ * \version 1.0.0
+ */
+int CLS_End(CLS_List list);	
+
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
 }
