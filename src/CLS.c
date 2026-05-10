@@ -236,4 +236,12 @@ int CLS_DelIndex(CLS_List list,size_t index){
 	}
 }
 
+//定義最後一項index
+int CLS_End(CLS_List list){
+	int end_index = _ListLen(list);
+
+	_debug(COMMON,"Find end index. list:%p, end_index:%d",list,end_index-1);
+	return end_index;
+}
+
 /*end 實現*/
