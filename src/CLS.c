@@ -240,7 +240,7 @@ int CLS_DelIndex(CLS_List list,size_t index){
 int CLS_End(CLS_List list){
 	int end_index = _ListLen(list);
 
-	_debug(COMMON,"Find end index. list:%p, end_index:%d",list,end_index-1);
+	_debug(COMMON,"Find end index. list:%p, end_index:%d",list,end_index);
 	return end_index;
 }
 
