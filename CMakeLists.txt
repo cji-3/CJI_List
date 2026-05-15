@@ -28,7 +28,7 @@ file(GLOB_RECURSE SOURCES "src/*.c")
 add_library(cls_static STATIC ${SOURCES})
 set_target_properties(cls_static PROPERTIES
     OUTPUT_NAME "cls"
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../libraries/lib"
 )
 
 # -------------------------------------------------------------------
@@ -40,9 +40,9 @@ set_target_properties(cls_shared PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
     # 這裡使用通用的輸出設定
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin" # Windows 的 .dll 會放這
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib" # Linux 的 .so 會放這
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib" # Windows 的 .lib 會放這
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../libraries/bin" # Windows 的 .dll 會放這
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../libraries/lib" # Linux 的 .so 會放這
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../libraries/lib" # Windows 的 .lib 會放這
 )
 
 # -------------------------------------------------------------------
@@ -54,6 +54,6 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/test/test.c")
 
     # 讓測試程式的輸出位址與 DLL 同層，方便 Windows 執行
     set_target_properties(test_app PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../libraries/bin"
     )
 endif()

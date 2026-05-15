@@ -45,7 +45,15 @@ CLS_List CLS_Create(size_t DataByte);
  *
  * \version 1.0.0
  */
-CLS_List CLS_CreateL_P(size_t DataByte,float Increment);
+CLS_List CLS_Create_P(size_t DataByte,float Increment);
+
+/**
+ * \brief 銷毀list(釋放記憶體)
+ * \param list list結構之指標
+ *
+ * \version 1.0.0
+ */
+void CLS_Free(CLS_List list);
 
 /**
  * \brief 新增元素到list
@@ -55,7 +63,16 @@ CLS_List CLS_CreateL_P(size_t DataByte,float Increment);
  *
  * \version 1.0.0
  */
-int CLS_AddLast(CLS_List list,void* data);
+int CLS_Psh(CLS_List list,void* data);
+
+/**
+ * \brief 取得最後一項元素
+ * \param list list結構之指標
+ * \returns 成功(元素指標)，失敗(NULL)
+ *
+ * \version 1.0.0
+ */
+void* CLS_Pop(CLS_List list);
 
 /**
  * \brief 在指定索引位置新增(插入)元素到list，後面的元素會自動往後
@@ -66,27 +83,7 @@ int CLS_AddLast(CLS_List list,void* data);
  *
  * \version 1.0.0
  */
-int CLS_AddIndex(CLS_List list,size_t index,void* data);
-
-/**
- * \brief 替換某元素
- * \param list list結構之指標
- * \param index 索引
- * \param data 要換成的數據指標
- *
- * \version 1.0.0
- */
-void CLS_Replace(CLS_List list,size_t index,void* data);
-
-/**
- * \brief 讀取list中的元素
- * \param list list結構之指標
- * \param index 索引
- * \returns 成功(元素指標)，失敗(NULL)
- *
- * \version 1.0.0
- */
-void* CLS_ReadIndex(CLS_List list,size_t index);
+int CLS_Ins(CLS_List list,size_t index,void* data);
 
 /**
  * \brief 刪除list中的元素
@@ -96,17 +93,44 @@ void* CLS_ReadIndex(CLS_List list,size_t index);
  *
  * \version 1.0.0
  */
-int CLS_DelIndex(CLS_List list,size_t index);
+int CLS_Del(CLS_List list,size_t index);
 
 /**
- * \brief 定義最後一項index
+ * \brief 讀取list中的元素
  * \param list list結構之指標
  * \param index 索引
- * \returns end index
+ * \returns 成功(元素指標)，失敗(NULL)
  *
  * \version 1.0.0
  */
-int CLS_End(CLS_List list);	
+void* CLS_Get(CLS_List list,size_t index);
+
+/**
+ * \brief 替換某元素
+ * \param list list結構之指標
+ * \param index 索引
+ * \param data 要換成的數據指標
+ *
+ * \version 1.0.0
+ */
+void CLS_Set(CLS_List list,size_t index,void* data);
+
+/**
+ * \brief 取得列表長度(總索引數)
+ * \param list list結構之指
+ * \returns 總索引數
+ *
+ * \version 1.0.0
+ */
+size_t CLS_Len(CLS_List list);
+
+/**
+ * \brief 清除列表(刪除所有元素，列表將為空，沒有任何索引)
+ * \param list list結構之指標
+ *
+ * \version 1.0.0
+ */
+void CLS_Clear(CLS_List list);
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
