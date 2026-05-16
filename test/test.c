@@ -11,6 +11,7 @@
 #include "../include/CLS.h"
 
 int main(){
+	//創建列表
 	CLS_List list=CLS_Create(sizeof(int));
 
 	//寫入測試
@@ -39,8 +40,7 @@ int main(){
 
 	//銷毀
 	CLS_Free(list);
-	
-	
+
 	#ifdef _WIN32
 		system("pause");
 	#endif
