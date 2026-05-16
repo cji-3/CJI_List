@@ -36,7 +36,7 @@ The format is `x.y.z` where:
 - **x**: Major version number, incremented for significant changes or incompatible API modifications.
 - **y**: Minor version number, incremented for new features that maintain backward compatibility.
 - **z**: Patch number, incremented for bug fixes or minor changes.
--
+
 ---
 
 # C語言可變長列表函式庫——CLS
