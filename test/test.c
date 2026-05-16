@@ -36,17 +36,17 @@ int main(){
 	for(i=0;i<100;i++){
 		printf("%d\n",*(int*)CLS_Get(list,i));
 	}
-	printf("END=%d\n",*(int*)CLS_Pop(list));
+	printf("END=%d\n",*(int*)CLS_Pop(list));	//讀取最後一項元素
 
 	//銷毀
 	CLS_Free(&list);
 
+	//測試list是否成功銷毀並變成NULL
 	printf("list_ptr=%p\n",list);
 
-	//pause放最後面
-	#ifdef _WIN32
-		system("pause");
-	#endif
+	//暫停直到ENTER被按下
+	printf("Press ENTER to continue...");
+	while(!getchar());
 
 	return 0;
 }
