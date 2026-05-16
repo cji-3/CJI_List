@@ -74,18 +74,18 @@ typedef struct _CLS_List{
 	/*end debug*/
 
 //想增加a個元素是否需擴容
-static bool _IsExpansion(CLS_List list,size_t a){
+static bool _IsExpansion(CLS_List* list,size_t a){
 	return list->UsedByte+list->DataByte*a > list->ComByte;
 }
 
 //新增元素到list
-static void _Write(CLS_List list,size_t index,void* data){
+static void _Write(CLS_List* list,size_t index,void* data){
 	size_t i;
 	for(i=0;i<list->DataByte;i++) ((char*)list->Address)[index*list->DataByte + i]=((char*)data)[i];	//(char*)作為"字節(位元組)"使用
 }
 
 //list的長度(項)
-static size_t _ListLen(CLS_List list){
+static size_t _ListLen(CLS_List* list){
 	return list->UsedByte/list->DataByte;
 }
 
@@ -96,7 +96,7 @@ static size_t _ListLen(CLS_List list){
 /***實現***/
 
 //創建list
-CLS_List CLS_Create(size_t DataByte){
+CLS_List* CLS_Create(size_t DataByte){
 	_CLS_List* _return=(_CLS_List*)malloc(sizeof(_CLS_List));
 	_return->DataByte=DataByte;
 	_return->ComByte=DataByte*CLS_DEFAULT_INIT_COM_INDEX;
@@ -105,11 +105,11 @@ CLS_List CLS_Create(size_t DataByte){
 	_return->Address=(void*)malloc(_return->ComByte);
 
 	_debug(COMMON,"CreateList success. list:%p",_return);
-	return (CLS_List)_return;
+	return (CLS_List*)_return;
 }
 
 //創建list(進階)
-CLS_List CLS_Create_P(size_t DataByte,float Increment){
+CLS_List* CLS_Create_P(size_t DataByte,float Increment){
 	_CLS_List* _return=(_CLS_List*)malloc(sizeof(_CLS_List));
 	_return->DataByte=DataByte;
 	_return->ComByte=DataByte*CLS_DEFAULT_INIT_COM_INDEX;
@@ -118,21 +118,21 @@ CLS_List CLS_Create_P(size_t DataByte,float Increment){
 	_return->Address=(void*)malloc(_return->ComByte);
 
 	_debug(COMMON,"CreateList_P success. list:%p",_return);
-	return (CLS_List)_return;
+	return (CLS_List*)_return;
 }
 
 //銷毀list(釋放記憶體)
-void CLS_Free(CLS_List list){
+void CLS_Free(CLS_List** list){
 	_debug(SIGN,"Free success. list:%p",list);
 
-	free(list->Address);
-	list->Address=NULL;
-	free(list);
-	list->Address=NULL;
+	free((*list)->Address);
+	(*list)->Address=NULL;
+	free(*list);
+	*list=NULL;
 }
 
 //新增元素到list(undone)
-int CLS_Psh(CLS_List list,void* data){
+int CLS_Psh(CLS_List* list,void* data){
 	if(!_IsExpansion(list,1)){	//不需要擴容
 		_Write(list,_ListLen(list),data);
 		list->UsedByte+=list->DataByte;
@@ -163,14 +163,14 @@ int CLS_Psh(CLS_List list,void* data){
 }
 
 //取得最後一項元素
-void* CLS_Pop(CLS_List list){
+void* CLS_Pop(CLS_List* list){
 	return list->Address+list->UsedByte-list->DataByte;
 
 	_debug(COMMON,"Pop success. list:%p",list);
 }
 
 //在指定索引位置新增(插入)元素到list，後面的元素會自動往後(undone)
-int CLS_Ins(CLS_List list,size_t index,void* data){
+int CLS_Ins(CLS_List* list,size_t index,void* data){
 
 	size_t len = _ListLen(list);
 
@@ -217,7 +217,7 @@ int CLS_Ins(CLS_List list,size_t index,void* data){
 }
 
 //刪除list中的元素，後面的元素會自動往前(undone)
-int CLS_Del(CLS_List list,size_t index){
+int CLS_Del(CLS_List* list,size_t index){
 	size_t len = _ListLen(list);
 
 	if(index < len){
@@ -236,7 +236,7 @@ int CLS_Del(CLS_List list,size_t index){
 }
 
 //讀取list中的元素
-void* CLS_Get(CLS_List list,size_t index){
+void* CLS_Get(CLS_List* list,size_t index){
 	if(index*list->DataByte < list->UsedByte){
 		_debug(COMMON,"Get success. list:%p, index:%zu",list,index);
 		return list->Address + index*list->DataByte;
@@ -248,21 +248,21 @@ void* CLS_Get(CLS_List list,size_t index){
 }
 
 //替換某元素(undone)
-void CLS_Set(CLS_List list,size_t index,void* data){
+void CLS_Set(CLS_List* list,size_t index,void* data){
 	_Write(list,index,data);
 
 	_debug(COMMON,"Set success. list:%p, index:%zu",list,index);
 }
 
 //取得列表長度(總索引數)
-size_t CLS_Len(CLS_List list){
+size_t CLS_Len(CLS_List* list){
 	_debug(COMMON,"Len success. list:%p, len:%d",list,_ListLen(list));
 
 	return _ListLen(list);
 }
 
 //清除列表(刪除所有元素，列表將為空，沒有任何索引)
-void CLS_Clear(CLS_List list){
+void CLS_Clear(CLS_List* list){
 	free(list->Address);
 	list->Address=(void*)malloc(list->ComByte);
 

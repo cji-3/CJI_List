@@ -12,7 +12,7 @@
 
 int main(){
 	//創建列表
-	CLS_List list=CLS_Create(sizeof(int));
+	CLS_List* list=CLS_Create(sizeof(int));
 
 	//寫入測試
 	int a=0,i;
@@ -39,11 +39,13 @@ int main(){
 	printf("END=%d\n",*(int*)CLS_Pop(list));
 
 	//銷毀
-	CLS_Free(list);
+	CLS_Free(&list);
 
 	#ifdef _WIN32
 		system("pause");
 	#endif
+
+	printf("list_ptr=%p\n",list);
 
 	return 0;
 }
