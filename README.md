@@ -3,7 +3,7 @@ Version: 1.0.0
 
 ## Links:
 [Changelog](./doc/EN/CHANGELOG.md)
-[License](./LICENSE.md)
+[License](./doc/EN/LICENSE.md)
 [Bug Report](https://forms.gle/RYvRmd42WTKJG4gQA)
 
 ---
@@ -35,7 +35,6 @@ Functions ending with `_P` are advanced functions (standing for "Power"), provid
 4. Compile and run your program, ensuring that the libraries are correctly linked.
 5. Utilize `CLS_` functions to create, manipulate, and free your variable-length lists, and enjoy flexible data structure management!
 
----
 ---
 
 # C語言可變長列表函式庫——CLS
