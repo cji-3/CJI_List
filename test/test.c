@@ -39,7 +39,7 @@ int main(){
 
 	//銷毀
 	CLS_Free(list);
-	printf("END=%d\n",*(int*)CLS_Pop(list));
+	
 	
 	#ifdef _WIN32
 		system("pause");
