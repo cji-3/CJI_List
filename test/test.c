@@ -45,6 +45,7 @@ int main(){
 	printf("list_ptr=%p\n",list);
 
 	//暫停直到ENTER被按下
+	printf("Press ENTER to continue...");
 	while(!getchar());
 
 	return 0;
