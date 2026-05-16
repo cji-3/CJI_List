@@ -1,21 +1,27 @@
 @echo off
-
 chcp 65001 >nul
 
-mkdir build
-cd build
+if not exist build mkdir build
+pushd build
 cmake -G "MinGW Makefiles" ..
 cmake --build .
 
-if %errorlevel% equ 0 (
-    echo.
-    echo 執行測試程式...
-    echo.--------------------
-    "../libraries/bin/test_app.exe"
-    cd ..
-) else (
+if errorlevel 1 (
     echo.
     echo 編譯失敗，請檢查程式碼！
-    cd ..
+    popd
     pause
+    exit /b 1
 )
+
+popd
+
+echo.
+echo 執行測試程式(靜態庫)...
+echo.--------------------
+"libraries\bin\cls_test_static.exe"
+
+echo.
+echo 執行測試程式(動態庫)...
+echo.--------------------
+"libraries\lib\cls_test_shared.exe"

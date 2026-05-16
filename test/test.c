@@ -27,7 +27,7 @@ int main(){
 
 	//插入測試
 	a=250;
-	CLS_Ins(list,90,&a);//在90插入
+	CLS_Ins(list,90,&a);	//在90插入
 
 	//刪除測試
 	CLS_Del(list,51);
@@ -42,7 +42,7 @@ int main(){
 	CLS_Free(&list);
 
 	//測試list是否成功銷毀並變成NULL
-	printf("list_ptr=%p\n",list);
+	printf("list_ptr=%p\n",(void*)list);
 
 	//暫停直到ENTER被按下
 	printf("Press ENTER to continue...");
