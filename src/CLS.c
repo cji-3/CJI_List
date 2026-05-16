@@ -126,8 +126,8 @@ void CLS_Free(CLS_List list){
 	_debug(SIGN,"Free success. list:%p",list);
 
 	free(list->Address);
+	list->Address=NULL;
 	free(list);
-	list=NULL;
 }
 
 //新增元素到list(undone)
@@ -263,7 +263,7 @@ size_t CLS_Len(CLS_List list){
 //清除列表(刪除所有元素，列表將為空，沒有任何索引)
 void CLS_Clear(CLS_List list){
 	free(list->Address);
-	list->Address=NULL;
+	list->Address=(void*)malloc(list->ComByte);
 
 	_debug(SIGN,"Clear success. list:%p",list);
 }

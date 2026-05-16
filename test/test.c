@@ -44,5 +44,8 @@ int main(){
 	//銷毀
 	CLS_Free(list);
 
+	printf("l:%p\n",list);
+	printf("90:%d\n",*(int*)CLS_Get(list,90));
+
 	return 0;
 }
