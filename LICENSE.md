@@ -1,3 +1,5 @@
+MIT License
+
 # CJI_List：
 
 ## C語言列表函式庫
