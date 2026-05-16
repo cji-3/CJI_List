@@ -123,7 +123,7 @@ CLS_List* CLS_Create_P(size_t DataByte,float Increment){
 
 //銷毀list(釋放記憶體)
 void CLS_Free(CLS_List** list){
-	_debug(SIGN,"Free success. list:%p",list);
+	_debug(SIGN,"Free success. list:%p. But already become NULL(0)",*list);
 
 	free((*list)->Address);
 	(*list)->Address=NULL;
