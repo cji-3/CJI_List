@@ -1,11 +1,54 @@
-# C語言可變長列表函式庫——CLS
+# C Variable-Length List Library — CLS
+Version: 1.0.0
 
+## Links:
+[Changelog](./doc/EN/CHANGELOG.md)
+[License](./LICENSE.md)
+[Bug Report](https://forms.gle/RYvRmd42WTKJG4gQA)
+
+---
+
+## Function List:
+All functions are prefixed with `CLS_`.
+
+Functions ending with `_P` are advanced functions (standing for "Power"), providing extended capabilities (please refer to `CLS.h` for details).
+
+| Category | Function | Description | Parameters | _P |
+| :--- | :--- | :--- | :--- | :--- |
+| **Lifecycle** | `Create` | Creates a new list | Data byte width | Memory increment configuration |
+| **Lifecycle** | `Free` | Frees the list and its memory | List | - |
+| **Tail Operations** | `Psh` | Pushes data to the end | List, Data | - |
+| **Tail Operations** | `Pop` | Pops the last element | List, Index | - |
+| **Index Operations** | `Ins` | Inserts data at a specified index | List, Index, Data | - |
+| **Index Operations** | `Del` | Deletes data at a specified index | List, Index | - |
+| **Access Control** | `Get` | Retrieves the pointer of a specified index | List, Index | - |
+| **Access Control** | `Set` | Overwrites the content of a specified index | List, Index, Data | - |
+| **State Management**| `Len` | Retrieves the total number of elements | List | - |
+| **State Management**| `Clear` | Clears all contents | List | - |
+
+---
+
+## Build and Usage Instructions:
+1. Run `run_build.bat` or configure the CMake files manually to generate the link libraries in the `libraries` folder (`bin` and `lib`).
+2. Add `CLS.h` and the generated link libraries to your project, and configure the include paths and linker settings accordingly.
+3. Include `CLS.h` in your source code, and use the functions prefixed with `CLS_` to operate the variable-length list.
+4. Compile and run your program, ensuring that the libraries are correctly linked.
+5. Utilize `CLS_` functions to create, manipulate, and free your variable-length lists, and enjoy flexible data structure management!
+
+---
+---
+
+# C語言可變長列表函式庫——CLS
 版本：1.0.0
+
+## 連結：
+[版本紀錄](./doc/ZH/CHANGELOG.md)
+[授權文件](./doc/ZH/LICENSE.md)
+[BUG回報](https://forms.gle/RYvRmd42WTKJG4gQA)
 
 ---
 
 ## 函式列表：
-
 所有函式皆以`CLS_`開頭。
 
 以`_P`結尾的函式為進階函式(power之意)，提供更多功能(自行自CLS.h中查看)。
@@ -25,8 +68,7 @@
 
 ---
 
-## 建置
-
+## 建置與使用說明：
 1. 執行run_build.bat或是自行編譯CMAEKE檔案，生成連結庫於libraries資料夾中(bin與lib)
 2. 將CLS.h與連結庫加入專案中，包含路徑與連結器設定
 3. 在程式中包含CLS.h，並使用CLS_開頭的函式來操作可變長列表
