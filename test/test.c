@@ -41,11 +41,12 @@ int main(){
 	//銷毀
 	CLS_Free(&list);
 
+	printf("list_ptr=%p\n",list);
+
+	//pause放最後面
 	#ifdef _WIN32
 		system("pause");
 	#endif
-
-	printf("list_ptr=%p\n",list);
 
 	return 0;
 }
