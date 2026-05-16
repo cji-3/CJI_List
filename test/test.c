@@ -37,15 +37,13 @@ int main(){
 	}
 	printf("END=%d\n",*(int*)CLS_Pop(list));
 
+	//銷毀
+	CLS_Free(list);
+	
+	
 	#ifdef _WIN32
 		system("pause");
 	#endif
-
-	//銷毀
-	CLS_Free(list);
-
-	printf("l:%p\n",list);
-	printf("90:%d\n",*(int*)CLS_Get(list,90));
 
 	return 0;
 }

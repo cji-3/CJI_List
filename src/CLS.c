@@ -128,6 +128,7 @@ void CLS_Free(CLS_List list){
 	free(list->Address);
 	list->Address=NULL;
 	free(list);
+	list->Address=NULL;
 }
 
 //新增元素到list(undone)
