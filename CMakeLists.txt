@@ -38,7 +38,7 @@ target_include_directories(cls_static PRIVATE "${CLS_INCLUDE_DIR}")
 target_compile_options(cls_static PRIVATE ${CLS_WARNING_OPTIONS})
 set_target_properties(cls_static PROPERTIES
     OUTPUT_NAME "cls"
-    ARCHIVE_OUTPUT_DIRECTORY "${CLS_LIB_OUTPUT_DIR}"
+    ARCHIVE_OUTPUT_DIRECTORY "${CLS_BIN_OUTPUT_DIR}"
 )
 
 # 2. 生成動態函式庫 (Shared Library)
@@ -49,20 +49,28 @@ set_target_properties(cls_shared PROPERTIES
     OUTPUT_NAME "cls"
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
-    RUNTIME_OUTPUT_DIRECTORY "${CLS_BIN_OUTPUT_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY "${CLS_LIB_OUTPUT_DIR}"
     LIBRARY_OUTPUT_DIRECTORY "${CLS_LIB_OUTPUT_DIR}"
     ARCHIVE_OUTPUT_DIRECTORY "${CLS_LIB_OUTPUT_DIR}"
 )
 
 # 3. 測試程式
 if(EXISTS "${CMAKE_SOURCE_DIR}/test/test.c")
-    add_executable(test_app test/test.c)
-    target_include_directories(test_app PRIVATE "${CLS_INCLUDE_DIR}")
-    target_compile_options(test_app PRIVATE ${CLS_WARNING_OPTIONS})
-    target_link_libraries(test_app PRIVATE cls_static)
+    add_executable(cls_test_static test/test.c)
+    target_include_directories(cls_test_static PRIVATE "${CLS_INCLUDE_DIR}")
+    target_compile_options(cls_test_static PRIVATE ${CLS_WARNING_OPTIONS})
+    target_link_libraries(cls_test_static PRIVATE cls_static)
 
-    # 讓測試程式的輸出位址與 DLL 同層，方便 Windows 執行
-    set_target_properties(test_app PROPERTIES
+    add_executable(cls_test_shared test/test.c)
+    target_include_directories(cls_test_shared PRIVATE "${CLS_INCLUDE_DIR}")
+    target_compile_options(cls_test_shared PRIVATE ${CLS_WARNING_OPTIONS})
+    target_link_libraries(cls_test_shared PRIVATE cls_shared)
+
+    # 讓測試程式的輸出位址與對應庫檔案同層
+    set_target_properties(cls_test_static PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CLS_BIN_OUTPUT_DIR}"
+    )
+    set_target_properties(cls_test_shared PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CLS_LIB_OUTPUT_DIR}"
     )
 endif()
