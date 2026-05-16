@@ -164,7 +164,7 @@ int CLS_Psh(CLS_List* list,void* data){
 
 //取得最後一項元素
 void* CLS_Pop(CLS_List* list){
-	return list->Address+list->UsedByte-list->DataByte;
+	return (void*)((size_t)list->Address+list->UsedByte-list->DataByte);
 
 	_debug(COMMON,"Pop success. list:%p",list);
 }
@@ -239,7 +239,7 @@ int CLS_Del(CLS_List* list,size_t index){
 void* CLS_Get(CLS_List* list,size_t index){
 	if(index*list->DataByte < list->UsedByte){
 		_debug(COMMON,"Get success. list:%p, index:%zu",list,index);
-		return list->Address + index*list->DataByte;
+		return (void*)((size_t)list->Address + index*list->DataByte);
 	}
 	else{
 		_debug(ERROR,"Get error. Read out of bounds. list:%p, index:%zu, UsedIndex:%zu",list,index,list->UsedByte/list->DataByte);

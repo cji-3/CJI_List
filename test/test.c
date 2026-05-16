@@ -42,7 +42,7 @@ int main(){
 	CLS_Free(&list);
 
 	//測試list是否成功銷毀並變成NULL
-	printf("list_ptr=%p\n",list);
+	printf("list_ptr=%p\n",(void*)list);
 
 	//暫停直到ENTER被按下
 	printf("Press ENTER to continue...");
