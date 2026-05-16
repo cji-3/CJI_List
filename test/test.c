@@ -16,29 +16,33 @@ int main(){
 	//寫入測試
 	int a=0,i;
 	for(i=0;i<100;i++){
-		CLS_AddLast(list,&a);
+		CLS_Psh(list,&a);
 		a++;
 	}
 
 	//替換測試
 	a=1000;
-	CLS_Replace(list,50,&a);
+	CLS_Set(list,80,&a);
 
 	//插入測試
-	int b=250;
-	CLS_AddIndex(list,CLS_End(list),&b);//在尾端插入
+	a=250;
+	CLS_Ins(list,90,&a);//在90插入
 
 	//刪除測試
-	CLS_DelIndex(list,51);	
+	CLS_Del(list,51);
 
 	//讀取測試
 	for(i=0;i<100;i++){
-		printf("%d\n",*(int*)CLS_ReadIndex(list,i));
+		printf("%d\n",*(int*)CLS_Get(list,i));
 	}
+	printf("END=%d\n",*(int*)CLS_Pop(list));
 
 	#ifdef _WIN32
-	system("pause");
+		system("pause");
 	#endif
+
+	//銷毀
+	CLS_Free(list);
 
 	return 0;
 }

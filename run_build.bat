@@ -11,7 +11,7 @@ if %errorlevel% equ 0 (
     echo.
     echo 執行測試程式...
     echo.--------------------
-    test_app.exe
+    "../libraries/bin/test_app.exe"
     cd ..
 ) else (
     echo.
