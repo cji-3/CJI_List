@@ -27,7 +27,7 @@ int main(){
 
 	//插入測試
 	a=250;
-	CLS_Ins(list,90,&a);//在90插入
+	CLS_Ins(list,90,&a);	//在90插入
 
 	//刪除測試
 	CLS_Del(list,51);
