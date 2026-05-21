@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # 1. 專案宣告與版本
-project(CLS VERSION 1.0.0 LANGUAGES C)
+project(CLS VERSION 1.1.0 LANGUAGES C)
 
 # 強制使用 C99 標準
 set(CMAKE_C_STANDARD 99)

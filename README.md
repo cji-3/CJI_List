@@ -1,5 +1,5 @@
 # C Variable-Length List Library — CLS
-Version: 1.0.0
+Version: 1.1.0
 
 ## Links:
 [Changelog](./doc/EN/CHANGELOG.md)
@@ -40,7 +40,7 @@ The format is `x.y.z` where:
 ---
 
 # C語言可變長列表函式庫——CLS
-版本：1.0.0
+版本：1.1.0
 
 ## 連結：
 [版本紀錄](./doc/ZH/CHANGELOG.md)
