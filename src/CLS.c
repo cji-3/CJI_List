@@ -6,7 +6,7 @@
  * @date 2026-05-04
  */
 
-#include "../include/CLS.h"
+#include "CLS.h"
 #include<stdlib.h>
 #include<stdbool.h>
 
