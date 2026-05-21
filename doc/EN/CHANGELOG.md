@@ -1,5 +1,23 @@
 # Changelog
 
+## V 1.1.0 - 2025/05/21
+
+### Added
+
+- None
+
+### Changed
+
+- reorganize the folder structure to make the project clearer.
+
+### Fixed
+
+- None
+
+### Removed
+
+- None
+
 ## [1.0.0] - 2026-05-16
 
 ### Added
