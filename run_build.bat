@@ -19,9 +19,9 @@ popd
 echo.
 echo 執行測試程式(靜態庫)...
 echo.--------------------
-"libraries\bin\cls_test_static.exe"
+"bin\cls_test_static.exe"
 
 echo.
 echo 執行測試程式(動態庫)...
 echo.--------------------
-"libraries\lib\cls_test_shared.exe"
+"lib\cls_test_shared.exe"
