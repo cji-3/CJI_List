@@ -8,10 +8,13 @@
 
 #include "CLS.h"
 #include<stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
 #include<stdbool.h>
 
-#define _CLS_DEBUG_MSG_	//開啟debug訊息(註解掉則關閉)
-#define _CLS_DEBUG_MSG_COMMON_OFF	//關閉一般訊息
+//#define _CLS_DEBUG_MSG_	//開啟debug訊息(註解掉則關閉)
+//#define _CLS_DEBUG_MSG_COMMON_OFF	//關閉一般訊息
 //#define _CLS_DEBUG_MSG_SIGN_OFF	//關閉重點訊息
 
 /**
