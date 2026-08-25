@@ -70,7 +70,7 @@ echo [正在打包靜態庫 .a]
 ar rcs "!libPath!\lib!libAndBinFileName!.a" compilertmp\*.o
 
 echo [正在編譯動態庫 .dll]
-gcc -shared !gccParam! !hfile! -o "!binPath!\!libAndBinFileName!.dll" compilertmp\*.o !afile! -Wl,--out-implib,"!binPath!\lib!libAndBinFileName!.dll.a"
+gcc -shared !gccParam! !hfile! -o "!binPath!\!libAndBinFileName!.dll" compilertmp\*.o !afile! -Wl,--out-implib,"!libPath!\lib!libAndBinFileName!.dll.a"
 
 rmdir /s /q compilertmp
 

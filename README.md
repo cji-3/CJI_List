@@ -1,10 +1,15 @@
 # C Variable-Length List Library — CLS
+development and maintenance cji company changhua county taiwan province republic of china
 Version: 1.1.0
 
 ## Links:
 [Changelog](./doc/EN/CHANGELOG.md)
-[License](./doc/EN/LICENSE.md)
+[License](./LICENSE.md)
 [Bug Report](https://forms.gle/RYvRmd42WTKJG4gQA)
+
+## author
+- 林東頡 (cji)
+- 賴洧霖 (weilinlai)
 
 ## Function List:
 All functions are prefixed with `CLS_`.
@@ -41,12 +46,17 @@ The format is `x.y.z` where:
 ---
 
 # C語言可變長列表函式庫——CLS
+開發與維護：CJI 公司 (中華民國台灣省彰化縣)
 版本：1.1.0
 
 ## 連結：
 [版本紀錄](./doc/ZH/CHANGELOG.md)
-[授權文件](./doc/ZH/LICENSE.md)
+[授權文件](./LICENSE.md)
 [BUG回報](https://forms.gle/RYvRmd42WTKJG4gQA)
+
+## 作者：
+- 林東頡 (cji)
+- 賴洧霖 (weilinlai)
 
 ## 函式列表：
 所有函式皆以`CLS_`開頭。

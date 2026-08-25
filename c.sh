@@ -82,7 +82,7 @@ echo "[正在編譯動態庫]"
 # 判斷作業系統（Windows/MinGW 產出 .dll，Linux 產出 .so）
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
     dllOut="${binPath}/${libAndBinFileName}.dll"
-    implibOut="${binPath}/lib${libAndBinFileName}.dll.a"
+    implibOut="${libPath}/lib${libAndBinFileName}.dll.a"
     gcc -shared $gccParam $hfile -o "$dllOut" compilertmp/*.o $afile -Wl,--out-implib,"$implibOut"
 else
     # Linux 環境下生成 .so (加 -fPIC 參數)
