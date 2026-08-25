@@ -8,11 +8,11 @@
 
 #include "CLS.h"
 #include<stdlib.h>
+#include<stdio.h>
+#include<stdarg.h>
+#include<string.h>
 #include<stdbool.h>
-
-#define _CLS_DEBUG_MSG_	//開啟debug訊息(註解掉則關閉)
-#define _CLS_DEBUG_MSG_COMMON_OFF	//關閉一般訊息
-//#define _CLS_DEBUG_MSG_SIGN_OFF	//關閉重點訊息
+#include<stdarg.h>
 
 /**
  * list結構
@@ -27,13 +27,6 @@ typedef struct _CLS_List{
 
 /***內部函式***/
 
-	/*debug*/
-	#ifdef _CLS_DEBUG_MSG_
-		#include<stdio.h>
-		#include<string.h>
-		#include<stdarg.h>
-	#endif
-
 	//debug訊息類型
 	typedef enum{
 		COMMON,	/**< 一般訊息(綠色文字) */
@@ -41,35 +34,31 @@ typedef struct _CLS_List{
 		ERROR	/**< 錯誤訊息(紅色文字) */
 	}_CLS_Debug;
 
+	static CLS_DEBUG_Flag _DEBUG_Flag=0;
+
 	//debug
 	static void _debug(_CLS_Debug mods,const char* str,...){
 		//如果debug訊息被關閉則不輸出
-		#ifndef _CLS_DEBUG_MSG_
-			return;
-		#endif
+		if(!_DEBUG_Flag) return;
+		else if(((~_DEBUG_Flag)&CLS_DEBUG_FLAG_COMMON) && mods==COMMON) return;
+		else if(((~_DEBUG_Flag)&CLS_DEBUG_FLAG_SING) && mods==SIGN) return;
+		else if(((~_DEBUG_Flag)&CLS_DEBUG_FLAG_ERROR) && mods==ERROR) return;
+		else{
+			va_list a;
+			va_start(a,str);
 
-		//如果訊息類型被關閉則不輸出
-		#ifdef _CLS_DEBUG_MSG_COMMON_OFF
-			if(mods==COMMON) return;
-		#endif
-		#ifdef _CLS_DEBUG_MSG_SIGN_OFF
-			if(mods==SIGN) return;
-		#endif
+			printf("\x1b[33mCLS：");	//黃色
 
-		va_list a;
-		va_start(a,str);
+			if(mods==ERROR) printf("\x1b[31m");	//紅色
+			else if(mods==SIGN) printf("\x1b[34m");	//藍色
+			else printf("\x1b[32m");	//綠色
+			vprintf(str,a);	//輸出訊息
+			printf("\x1b[0m");	//重置顏色
 
-		printf("\x1b[33mCLS：");	//黃色
+			if(str[strlen(str)-1]!='\n') printf("\n");	//如果訊息最後沒有換行則補上換行
 
-		if(mods==ERROR) printf("\x1b[31m");	//紅色
-		else if(mods==SIGN) printf("\x1b[34m");	//藍色
-		else printf("\x1b[32m");	//綠色
-		vprintf(str,a);	//輸出訊息
-		printf("\x1b[0m");	//重置顏色
-
-		if(str[strlen(str)-1]!='\n') printf("\n");	//如果訊息最後沒有換行則補上換行
-
-		va_end(a);
+			va_end(a);
+		}
 	}
 	/*end debug*/
 
@@ -267,6 +256,11 @@ void CLS_Clear(CLS_List* list){
 	list->Address=(void*)malloc(list->ComByte);
 
 	_debug(SIGN,"Clear success. list:%p",list);
+}
+
+//DEBUG旗標
+void CLS_SetDEBUG(CLS_DEBUG_Flag _flag){
+	_DEBUG_Flag=_flag;
 }
 
 /***end 實現***/
