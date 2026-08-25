@@ -139,22 +139,23 @@ void CLS_Clear(CLS_List* list);
  *
  * \version 1.1.0
  */
-typedef char CLS_DEBUG_Flag;
+typedef uint8_t CLS_DeBug_Flag;
 
-#define CLS_DEBUG_FLAG_COMMON	0x01u	/**< 一般訊息 */
-#define CLS_DEBUG_FLAG_SING		0x02u	/**< 重點訊息 */
-#define CLS_DEBUG_FLAG_ERROR	0x04u	/**< 錯誤訊息 */
+#define CLS_SETDEBUG_FLAG_COMMON	(CLS_DeBug_Flag)0x01u	/**< 一般訊息 */
+#define CLS_SETDEBUG_FLAG_SING		(CLS_DeBug_Flag)0x02u	/**< 重點訊息 */
+#define CLS_SETDEBUG_FLAG_ERROR		(CLS_DeBug_Flag)0x04u	/**< 錯誤訊息 */
+#define CLS_SETDEBUG_FLAG_ALL		(CLS_DeBug_Flag)0x07u	/**< 全部訊息 */
 
 /**
  * \brief 設定DEBUG訊息狀態，預設無任何DEBUG訊息。訊息會直接由stdio輸出。
  * 有三種狀態訊息，使用位元或將它們合併。或是給0關閉DEBUG訊息。
- * CLS_DEBUG_FLAG_COMMON、CLS_DEBUG_FLAG_SING、CLS_DEBUG_FLAG_ERROR。
- * 如：`CLS_SetDEBUG(CLS_DEBUG_FLAG_SING | CLS_DEBUG_FLAG_ERROR);`
+ * CLS_SETDEBUG_FLAG_COMMON、CLS_SETDEBUG_FLAG_SING、CLS_SETDEBUG_FLAG_ERROR。
+ * 如：`CLS_SetDeBug(CLS_SETDEBUG_FLAG_SING | CLS_SETDEBUG_FLAG_ERROR);`
  *
  * \param flag 旗標
  * \version 1.1.0
  */
-void CLS_SetDEBUG(CLS_DEBUG_Flag _flag);
+void CLS_SetDeBug(CLS_DeBug_Flag _flag);
 
 //設定C函數定義，使使用C++時也是如此
 #ifdef __cplusplus
