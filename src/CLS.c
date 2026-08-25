@@ -34,15 +34,15 @@ typedef struct _CLS_List{
 		ERROR	/**< 錯誤訊息(紅色文字) */
 	}_CLS_Debug;
 
-	static CLS_DEBUG_Flag _DEBUG_Flag=0;
+	static CLS_DeBug_Flag _DEBUG_Flag=0;
 
 	//debug
 	static void _debug(_CLS_Debug mods,const char* str,...){
 		//如果debug訊息被關閉則不輸出
 		if(!_DEBUG_Flag) return;
-		else if(((~_DEBUG_Flag)&CLS_DEBUG_FLAG_COMMON) && mods==COMMON) return;
-		else if(((~_DEBUG_Flag)&CLS_DEBUG_FLAG_SING) && mods==SIGN) return;
-		else if(((~_DEBUG_Flag)&CLS_DEBUG_FLAG_ERROR) && mods==ERROR) return;
+		else if(((~_DEBUG_Flag)&CLS_SETDEBUG_FLAG_COMMON) && mods==COMMON) return;
+		else if(((~_DEBUG_Flag)&CLS_SETDEBUG_FLAG_SING) && mods==SIGN) return;
+		else if(((~_DEBUG_Flag)&CLS_SETDEBUG_FLAG_ERROR) && mods==ERROR) return;
 		else{
 			va_list a;
 			va_start(a,str);
@@ -259,7 +259,7 @@ void CLS_Clear(CLS_List* list){
 }
 
 //DEBUG旗標
-void CLS_SetDEBUG(CLS_DEBUG_Flag _flag){
+void CLS_SetDeBug(CLS_DeBug_Flag _flag){
 	_DEBUG_Flag=_flag;
 }
 

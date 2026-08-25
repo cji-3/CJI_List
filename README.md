@@ -23,9 +23,10 @@ Functions ending with `_P` are advanced functions (standing for "Power"), provid
 | **Access Control** | `Set` | Overwrites the content of a specified index | List, Index, Data | - |
 | **State Management**| `Len` | Retrieves the total number of elements | List | - |
 | **State Management**| `Clear` | Clears all contents | List | - |
+| **other**	   | `SetDeBug`	| set the debug messages to display| flag             | -
 
 ## Build and Usage Instructions:
-1. Run `run_build.bat` or configure the CMake files manually to generate the link libraries in the `libraries` folder (`bin` and `lib`).
+1 execute c.bat or compile it yourself to generate the library in the bin and lib folders
 2. Add `CLS.h` and the generated link libraries to your project, and configure the include paths and linker settings accordingly.
 3. Include `CLS.h` in your source code, and use the functions prefixed with `CLS_` to operate the variable-length list.
 4. Compile and run your program, ensuring that the libraries are correctly linked.
@@ -64,9 +65,10 @@ The format is `x.y.z` where:
 | **存取控制** | `Set` 		| 覆蓋指定索引的內容　| 列表、索引、數據　| -
 | **狀態管理** | `Len` 		| 獲取元素總數　　　　| 列表　　　　　　　| -
 | **狀態管理** | `Clear` 	| 清空內容　　　　　　| 列表　　　　　　　| -
+| **其他**	   | `SetDeBug`	| 設定要顯示的除錯訊息| 旗標             | -
 
 ## 建置與使用說明：
-1. 執行run_build.bat或是自行編譯CMAEKE檔案，生成連結庫於libraries資料夾中(bin與lib)
+1. 執行c.bat或是自行編譯，生成連結庫於bin與lib資料夾中
 2. 將CLS.h與連結庫加入專案中，包含路徑與連結器設定
 3. 在程式中包含CLS.h，並使用CLS_開頭的函式來操作可變長列表
 4. 編譯並執行程式，確保連結庫正確連結
