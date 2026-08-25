@@ -11,6 +11,13 @@
 #include "../include/CLS.h"
 
 int main(){
+	//DEBUG設定
+	CLS_SetDEBUG(
+		//CLS_DEBUG_FLAG_COMMON	|
+		CLS_DEBUG_FLAG_SING	|
+		CLS_DEBUG_FLAG_ERROR
+	);
+
 	//創建列表
 	CLS_List* list=CLS_Create(sizeof(int));
 
