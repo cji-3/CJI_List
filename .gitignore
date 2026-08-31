@@ -1,1 +1,4 @@
 .vscode/
+bin/CLS.dll
+lib/libCLS.dll.a
+test/test.exe
