@@ -2,8 +2,8 @@
 setlocal enabledelayedexpansion
 
 :::::::::::::::::::: user set ::::::::::::::::::::::
-::¦¹ÀÉ®×¶·©ñ¦b±M®×®Ú¥Ø¿ý
-::¦¹§å¦¸ÀÉ·|½sÄ¶¥XÀRºA®w©M°ÊºA®w¥H¤Î´ú¸Õµ{¦¡¡A´ú¸Õµ{¦¡¬O³sµ²lib¤¤ªºÀRºA®w¡C
+::æ­¤æª”æ¡ˆé ˆæ”¾åœ¨å°ˆæ¡ˆæ ¹ç›®éŒ„
+::æ­¤æ‰¹æ¬¡æª”æœƒç·¨è­¯å‡ºéœæ…‹åº«å’Œå‹•æ…‹åº«ä»¥åŠæ¸¬è©¦ç¨‹å¼ï¼Œæ¸¬è©¦ç¨‹å¼æ˜¯é€£çµlibä¸­çš„éœæ…‹åº«ã€‚
 
 set srcPath=src
 set includePath=include
@@ -14,18 +14,18 @@ set testPath=test
 set gccParam=-Wall -std=c99 -O2
 set externPath=
 
-::¥~³¡®w¤å¥óµ²ºc»Ý²Å¦X¥H¤U®æ¦¡¡G
+::å¤–éƒ¨åº«æ–‡ä»¶çµæ§‹éœ€ç¬¦åˆä»¥ä¸‹æ ¼å¼ï¼š
 ::extern
-::¢u¢wlib0
-::¢x  ¢u¢winclude
-::|  |  ¢|¢wlib0.h
-::¢x  ¢|¢wlib
-::|     ¢|¢wliblib0.a
-::¢|¢wlib1
-::    ¢u¢winclude
-::    |  ¢|¢wlib1.h
-::    ¢|¢wlib
-::       ¢|¢wliblib1.a
+::â”œâ”€lib0
+::â”‚  â”œâ”€include
+::|  |  â””â”€lib0.h
+::â”‚  â””â”€lib
+::|     â””â”€liblib0.a
+::â””â”€lib1
+::    â”œâ”€include
+::    |  â””â”€lib1.h
+::    â””â”€lib
+::       â””â”€liblib1.a
 ::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 if not exist "compilertmp" md compilertmp
@@ -33,13 +33,13 @@ if not exist "!libPath!" md "!libPath!"
 if not exist "!binPath!" md "!binPath!"
 
 set hfile=-I"!includePath!"
-echo [·j´M¨ìªºinclude¸ô®|] !includePath!
+echo [æœå°‹åˆ°çš„includeè·¯å¾‘] !includePath!
 
 if exist "!externPath!" (
     for /D %%d in (!externPath!\*) do (
         if exist "%%d\include" (
             set hfile=!hfile! -I"%%d\include"
-            echo [·j´M¨ìªºinclude¸ô®|] %%d\include
+            echo [æœå°‹åˆ°çš„includeè·¯å¾‘] %%d\include
         )
     )
 )
@@ -49,7 +49,7 @@ if exist "!externPath!" (
     for /D %%d in (!externPath!\*) do (
         for %%f in ("%%d\lib\*.a") do (
             set afile=!afile! "%%f"
-            echo [·j´M¨ìªº.a¤å¥ó] %%f
+            echo [æœå°‹åˆ°çš„.aæ–‡ä»¶] %%f
         )
     )
 )
@@ -57,46 +57,46 @@ if exist "!externPath!" (
 set cfile=
 for %%f in (!srcPath!\*.c) do (
     set cfile=!cfile! "%%f"
-    echo [½sÄ¶¤¤] %%f
+    echo [ç·¨è­¯ä¸­] %%f
     gcc -c !gccParam! !hfile! "%%f" -o "compilertmp\%%~nf.o"
     if !errorlevel! neq 0 (
-        echo [¥¢±Ñ] ½sÄ¶%%fªº¹Lµ{¥X¿ù¡A½ÐÀË¬d GCC ¿é¥X¡C
+        echo [å¤±æ•—] ç·¨è­¯%%fçš„éŽç¨‹å‡ºéŒ¯ï¼Œè«‹æª¢æŸ¥ GCC è¼¸å‡ºã€‚
         rmdir /s /q compilertmp
         exit /b 1
     )
 )
 
-echo [¥¿¦b¥´¥]ÀRºA®w .a]
+echo [æ­£åœ¨æ‰“åŒ…éœæ…‹åº« .a]
 ar rcs "!libPath!\lib!libAndBinFileName!.a" compilertmp\*.o
 
-echo [¥¿¦b½sÄ¶°ÊºA®w .dll]
+echo [æ­£åœ¨ç·¨è­¯å‹•æ…‹åº« .dll]
 gcc -shared !gccParam! !hfile! -o "!binPath!\!libAndBinFileName!.dll" compilertmp\*.o !afile! -Wl,--out-implib,"!libPath!\lib!libAndBinFileName!.dll.a"
 
 rmdir /s /q compilertmp
 
 echo.
 if !errorlevel! equ 0 (
-    echo [¦¨¥\] «Ø¸m§¹¦¨¡I
-    echo  - ÀRºA®w: !libPath!\lib!libAndBinFileName!.a
-    echo  - °ÊºA®w: !binPath!\!libAndBinFileName!.dll
-    echo  - ¶×¤J®w: !binPath!\lib!libAndBinFileName!.dll.a
+    echo [æˆåŠŸ] å»ºç½®å®Œæˆï¼
+    echo  - éœæ…‹åº«: !libPath!\lib!libAndBinFileName!.a
+    echo  - å‹•æ…‹åº«: !binPath!\!libAndBinFileName!.dll
+    echo  - åŒ¯å…¥åº«: !binPath!\lib!libAndBinFileName!.dll.a
 
     echo.
-    echo [¥¿¦b½sÄ¶´ú¸Õµ{¦¡]
+    echo [æ­£åœ¨ç·¨è­¯æ¸¬è©¦ç¨‹å¼]
     gcc !testPath!\*.c -o "!testPath!\test.exe" !gccParam! !hfile! -L"!libPath!" -l!libAndBinFileName! !afile!
     if !errorlevel! equ 0 (
-        echo [¦¨¥\] ´ú¸Õµ{¦¡½sÄ¶§¹¦¨¡I
-        echo  - ´ú¸Õµ{¦¡: !testPath!\test.exe
+        echo [æˆåŠŸ] æ¸¬è©¦ç¨‹å¼ç·¨è­¯å®Œæˆï¼
+        echo  - æ¸¬è©¦ç¨‹å¼: !testPath!\test.exe
     ) else (
-        echo [¥¢±Ñ] ´ú¸Õµ{¦¡½sÄ¶¹Lµ{¥X¿ù¡A½ÐÀË¬d GCC ¿é¥X¡C
+        echo [å¤±æ•—] æ¸¬è©¦ç¨‹å¼ç·¨è­¯éŽç¨‹å‡ºéŒ¯ï¼Œè«‹æª¢æŸ¥ GCC è¼¸å‡ºã€‚
     )
 ) else (
-    echo [¥¢±Ñ] «Ø¸m¹Lµ{¥X¿ù¡A½ÐÀË¬d GCC ¿é¥X¡C
+    echo [å¤±æ•—] å»ºç½®éŽç¨‹å‡ºéŒ¯ï¼Œè«‹æª¢æŸ¥ GCC è¼¸å‡ºã€‚
 )
 
 echo %CMDCMDLINE% | find /i "/c" >nul
 if !errorlevel! equ 0 (
     echo.
-    echo [´£¥Ü] °»´ú¨ìÂùÀ»°õ¦æ¡A«ö¥ô·NÁäµ²§ô...
+    echo [æç¤º] åµæ¸¬åˆ°é›™æ“ŠåŸ·è¡Œï¼ŒæŒ‰ä»»æ„éµçµæŸ...
     pause >nul
 )
