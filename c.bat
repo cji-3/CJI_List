@@ -72,8 +72,6 @@ ar rcs "!libPath!\lib!libAndBinFileName!.a" compilertmp\*.o
 echo [正在編譯動態庫 .dll]
 gcc -shared !gccParam! !hfile! -o "!binPath!\!libAndBinFileName!.dll" compilertmp\*.o !afile! -Wl,--out-implib,"!libPath!\lib!libAndBinFileName!.dll.a"
 
-rmdir /s /q compilertmp
-
 echo.
 if !errorlevel! equ 0 (
     echo [成功] 建置完成！
@@ -87,12 +85,16 @@ if !errorlevel! equ 0 (
     if !errorlevel! equ 0 (
         echo [成功] 測試程式編譯完成！
         echo  - 測試程式: !testPath!\test.exe
+
+        copy "!binPath!\!libAndBinFileName!.dll" "!testPath!" >nul
     ) else (
         echo [失敗] 測試程式編譯過程出錯，請檢查 GCC 輸出。
     )
 ) else (
     echo [失敗] 建置過程出錯，請檢查 GCC 輸出。
 )
+
+rmdir /s /q compilertmp
 
 echo %CMDCMDLINE% | find /i "/c" >nul
 if !errorlevel! equ 0 (

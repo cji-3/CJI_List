@@ -173,7 +173,7 @@ int CLS_Psh(CLS_List* list,void* data){
 
 //取得最後一項元素
 void* CLS_Pop(CLS_List* list){
-		_debug(COMMON,"Pop success. list:%p",list);
+	_debug(COMMON,"Pop success. list:%p",list);
 	return (void*)((size_t)list->Address+list->UsedByte-list->DataByte);
 }
 
